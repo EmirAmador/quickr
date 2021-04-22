@@ -5,6 +5,7 @@ import { firebase } from "../../firebase";
 import { validate } from "email-validator";
 import Alert from "../shared/Alert";
 import { Context as AuthContext } from "../../providers/AuthContext";
+import PasswordChecklist from "react-password-checklist"
 
 const SignupForm = ({ navigation }) => {
   const { state, signup } = useContext(AuthContext);
@@ -107,11 +108,23 @@ const SignupForm = ({ navigation }) => {
         }}
         error={passwordError}
       />
-      {passwordError && (
-        <Caption>
-          Por favor ingresa una contraseña de mínimo 6 caracteres
-        </Caption>
-      )}
+      
+
+      //una lista de las cosas que se van haciendo correctamente al ir ingresando una contraseña
+      <PasswordChecklist
+				rules={["length","specialChar","number","capital"]}
+				minLength={8}
+				value={password}
+				valueAgain={passwordAgain}
+				messages={{
+					length: "La contraseña tiene más de 8 caracteres.",
+					specialChar: "La contraseña tiene caracteres especiales.",
+					number: "La contraseña tiene un número.",
+					capital: "La contraseña tiene una letra mayúscula.",
+					
+				}}
+			/>
+
       <TextInput
         mode="outlined"
         label="Confirm password"

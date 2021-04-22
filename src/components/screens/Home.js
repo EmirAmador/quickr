@@ -5,6 +5,8 @@ import { Context as AuthContext } from "../../providers/AuthContext";
 import { Context as NoteContext } from "../../providers/NoteContext";
 import NoteList from "../shared/NoteList";
 import Toast from "react-native-toast-message";
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
+
 
 const Home = ({ navigation }) => {
   const { state, signout } = useContext(AuthContext);
@@ -22,6 +24,51 @@ const Home = ({ navigation }) => {
       clearMessage();
     }
   }, [noteState.errorMessage]);
+
+ 
+const Categorias = [
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    title: 'Personal',
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'Work',
+  },
+  {
+    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    title: 'Ideas',
+  },
+
+  {
+    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    title: 'List',
+  },
+];
+
+const Item = ({ title }) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{title}</Text>
+  </View>
+);
+
+const categorias = () => {
+  const renderItem = ({ item }) => (
+    <Item title={item.title} />
+  );
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+      />
+    </SafeAreaView>
+  );
+}
+
+
 
   return (
     <>
@@ -42,7 +89,7 @@ const Home = ({ navigation }) => {
         icon="plus"
         style={styles.fab}
         onPress={() => {
-          navigation.navigate("CreateNote");
+          navigation.navigate("CreateNote"), navigation.navigate("ModifyNote.js"), navigation.navigate("Home.js");
         }}
       />
     </>
@@ -71,6 +118,19 @@ const styles = StyleSheet.create({
     margin: 20,
     right: 0,
     bottom: 15,
+  },
+  container: {
+    flex: 1,
+    marginTop: StatusBar.currentHeight || 0,
+  },
+  item: {
+    backgroundColor: '#f9c2ff',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    fontSize: 20,
   },
 });
 

@@ -17,6 +17,7 @@ const CreateNote = ({ navigation }) => {
     if (!title) {
       setTitle("New note");
       createNote("New note", content, timestamp, state.user.id);
+      categoriaslist("Escoga Categoria");
     } else createNote(title, content, timestamp, state.user.id);
 
     navigation.navigate("Home");
