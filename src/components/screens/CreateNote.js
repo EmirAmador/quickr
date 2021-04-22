@@ -5,6 +5,8 @@ import { format } from "date-fns";
 import theme from "../../theme";
 import { Context as NoteContext } from "../../providers/NoteContext";
 import { Context as AuthContext } from "../../providers/AuthContext";
+import RNPickerSelect from "react-native-picker-select";
+
 
 const CreateNote = ({ navigation }) => {
   const { createNote } = useContext(NoteContext);
@@ -56,7 +58,22 @@ const CreateNote = ({ navigation }) => {
         value={content}
         onChangeText={setContent}
       />
+      <View style={styles.selector}>
+             <Text>Seleccione Categoria</Text>
+             <RNPickerSelect
+                 onValueChange={(value) => console.log(value)}
+                 items={[
+                     { label: "Personal", value: "Personal" },
+                     { label: "Work", value: "Work" },
+                     { label: "Ideas", value: "Ideas" },
+                     { label: "List", value: "List" },
+                 ]}
+             />
+         </View>
     </View>
+
+      
+
   );
 };
 
@@ -80,6 +97,12 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     flexDirection: "row",
     justifyContent: "flex-end",
+  },
+  selector : {
+    flex            : 1,
+    backgroundColor : theme.colors.backgroundWhite,
+    alignItems      : "center",
+    justifyContent  : "center",
   },
 });
 
